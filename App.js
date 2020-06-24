@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,ScrollView,FlatList, SafeAreaView } from 'react-native';
 
 export default function App() {
 
@@ -17,7 +17,16 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-        <ScrollView>
+        
+        <FlatList
+            data={person}
+            renderItem={({item})=>(
+              <Text style={styles.item}>{item.name}</Text>
+            )}
+        
+        />
+        
+        {/* <ScrollView>
             {person.map((item)=>{
                   return (
                     <View key={item.key}>
@@ -25,7 +34,7 @@ export default function App() {
                     </View>
                   )
               })}
-        </ScrollView>
+        </ScrollView> */}
     </SafeAreaView>
   );
 }
