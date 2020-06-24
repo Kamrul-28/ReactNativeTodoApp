@@ -1,54 +1,45 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View,ScrollView, SafeAreaView } from 'react-native';
 
 export default function App() {
 
-  const [name, setName] = useState('Kamrul');
-  const [age, setAge] = useState('25');
+  const [person, setName] = useState([
+    { name:'kamrul',key:'1' },
+    { name:'sazid' ,key:'2'  },
+    { name:'mukit' ,key:'3'  },
+    { name:'rayhan',key:'4'  },
+    { name:'preya' ,key:'5' },
+    { name:'arobi' ,key:'6' },
+    { name:'Rayhan',key:'7' },
+    { name:'arobi' ,key:'8' },
+    { name:'preya' ,key:'9' },
+  ]);
 
   return (
-    <View style={styles.container}>
-      <Text>Enter Your Name</Text>
-      <TextInput   
-          multiline
-          style={styles.input}
-          placeholder='e.g kamrul hasan'
-          onChangeText={(val) => setName(val)}
-
-      />
-      <Text>Enter Your Age</Text>
-      <TextInput
-          // keyboardType='numeric'
-          style={styles.input}
-          placeholder='e.g 25'
-          onChangeText={(val) => setAge(val)}
-
-      />
-
-      <Text>Name: {name} and Age: {age}</Text>
-
-      {/* <View style={styles.buttonContainer}>
-            <Button title='Click Me' onPress={clickHandle}/>
-      </View> */}
-    </View>
+    <SafeAreaView style={styles.container}>
+        <ScrollView>
+            {person.map((item)=>{
+                  return (
+                    <View key={item.key}>
+                        <Text style={styles.item}>{item.name}</Text>
+                    </View>
+                  )
+              })}
+        </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex:1,
+    marginTop:40,
+    marginHorizontal:20
   },
-  buttonContainer: {
-    marginTop: 20
+  item:{
+      marginTop:24,
+      padding:30,
+      fontSize:24,
+      backgroundColor:'pink',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
-  }
 });
