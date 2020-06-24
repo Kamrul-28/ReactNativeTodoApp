@@ -1,27 +1,38 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,ScrollView,FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,ScrollView,FlatList, SafeAreaView ,TouchableOpacity} from 'react-native';
 
 export default function App() {
 
-  const [person, setName] = useState([
-    { name:'kamrul',key:'1' },
-    { name:'sazid' ,key:'2'  },
-    { name:'mukit' ,key:'3'  },
-    { name:'rayhan',key:'4'  },
-    { name:'preya' ,key:'5' },
-    { name:'arobi' ,key:'6' },
-    { name:'Rayhan',key:'7' },
-    { name:'arobi' ,key:'8' },
-    { name:'preya' ,key:'9' },
+  const [person, setPerson] = useState([
+    { name:'kamrul',id:'1' },
+    { name:'sazid' ,id:'2'  },
+    { name:'mukit' ,id:'3'  },
+    { name:'rayhan',id:'4'  },
+    { name:'preya' ,id:'5' },
+    { name:'arobi' ,id:'6' },
+    { name:'Rayhan',id:'7' },
+    { name:'arobi' ,id:'8' },
+    { name:'preya' ,id:'9' },
   ]);
 
+
+  const pressHandeler=(id)=>{
+        console.log(id)
+        setPerson((prevPerson)=>{
+              return prevPerson.filter( person=> person.id!=id );
+        })
+  }
   return (
     <SafeAreaView style={styles.container}>
         
         <FlatList
+            numColumns={2}
+            keyExtractor={(item)=>item.id}
             data={person}
             renderItem={({item})=>(
-              <Text style={styles.item}>{item.name}</Text>
+              <TouchableOpacity onPress={()=>pressHandeler(item.id)}>
+                  <Text style={styles.item}>{item.name}</Text>
+              </TouchableOpacity>
             )}
         
         />
