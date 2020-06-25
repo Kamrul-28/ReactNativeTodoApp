@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,FlatList, SafeAreaView, Alert ,TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Header from './components/Header'
 import TodoItem from './components/TodoItem'
 import AddTodo from './components/AddTodo'
-
+// import SandBox from './components/SandBox'
 export default function App() {
 
   const[todos,setTodos]=useState([
@@ -19,32 +19,40 @@ export default function App() {
   }
 
   const submitHandle=(text)=>{
-
-    console.log(text);
-    setTodos((prevTodos)=>{
-      return [
-        { text:text , key:Math.random().toString() },
-         ...prevTodos
-      ]
-    })
+    
+    if(text.length > 3){     
+      setTodos((prevTodos)=>{
+        return [
+          { text:text , key:Math.random().toString() },
+           ...prevTodos
+        ]
+      })
+    }else{
+      Alert.alert('Opps!','Todos must grater than 3 character');
+    }
 
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-        <View style={styles.content}>
-            <AddTodo submitHandle={submitHandle}/>
-            <View style={styles.list}>
-                  <FlatList
-                      data={todos}
-                      renderItem={({item})=>(
-                         <TodoItem item={item} pressHandle={pressHandle} />
-                      )}
-                  />
+    <TouchableWithoutFeedback onPress={()=>{
+        // This is for dismiss the keyboard after touching the screen
+        Keyboard.dismiss();
+    }}>
+        <SafeAreaView style={styles.container}>
+          <Header />
+            <View style={styles.content}>
+                <AddTodo submitHandle={submitHandle}/>
+                <View style={styles.list}>
+                      <FlatList
+                          data={todos}
+                          renderItem={({item})=>(
+                            <TodoItem item={item} pressHandle={pressHandle} />
+                          )}
+                      />
+                </View>
             </View>
-        </View>
-    </SafeAreaView>
+        </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
